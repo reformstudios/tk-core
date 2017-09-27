@@ -95,7 +95,7 @@ class Entity(Folder):
         """
         return the special name field for a given entity
         """
-        spec_name_fields = {"Project": "name", "Task": "content", "HumanUser": "name"}
+        spec_name_fields = {"Project": "name", "Task": "content", "HumanUser": "name", "Delivery": "title"}
         if entity_type in spec_name_fields:
             return spec_name_fields[entity_type]
         else:
@@ -314,6 +314,8 @@ class Entity(Folder):
                 fields_to_retrieve.append("content")
             elif self._entity_type == "HumanUser":
                 fields_to_retrieve.append("login")
+            elif self._entity_type == "Delivery":
+                fields_to_retrieve.append("title")
             else:
                 fields_to_retrieve.append("code")
             
@@ -359,6 +361,9 @@ class Entity(Folder):
             elif self._entity_type == "HumanUser":
                 name = rec["login"]
                 tokens[ my_sg_data_key ]["login"] = rec["login"]
+            elif self._entity_type == "Delivery":
+                name = rec["title"]
+                tokens[ my_sg_data_key ]["title"] = rec["title"]
             else:
                 name = rec["code"]
                 tokens[ my_sg_data_key ]["code"] = rec["code"]
